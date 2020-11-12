@@ -1,0 +1,10 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    reactive:
+      url: ${DATABASE_URL:postgresql://kalarikkal:kalarikkal@localhost:5432/kalarikkal}
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+  http:
+    port: ${PORT:8080}
