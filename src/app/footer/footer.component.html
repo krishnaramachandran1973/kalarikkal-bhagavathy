@@ -1,0 +1,121 @@
+<!-- Footer -->
+<footer class="page-footer font-small navbar-dark red darken-1 pt-4 wow animate__fadeInUp" data-wow-delay="0.6s"
+        data-wow-duration="1s">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-5 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase footer-title">ABOUT KALARIKKAL BHAGAVATHY TEMPLE</h5>
+        <p class="footer-link">Linesh Dev is a clairvoyant psychic who acquired his abilities through Yoga and
+          penance. He attributes his psychic abilities to his association with Sadhus and Yogis.</p>
+
+        <p class="footer-link">He envisions to help those in need who couldn't find solutions/cure through other
+          means. </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-2 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase footer-title">NAVIGATE</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a [routerLinkActive]="['active']" [routerLink]="['']" class="footer-link">Home</a>
+          </li>
+          <li>
+            <a [routerLinkActive]="['active']" [routerLink]="['about']" class="footer-link">About</a>
+          </li>
+          <li>
+            <a [routerLinkActive]="['active']" [routerLink]="['contact']" class="footer-link">Contact</a>
+          </li>
+
+          <li>
+            <a [routerLinkActive]="['active']" [routerLink]="['videos']" class="footer-link">Videos</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 mb-md-0 mb-3">
+
+        <!-- Material form subscription -->
+        <div class="card red darken-1">
+
+          <h5 class="card-header red darken-1 white-text text-center py-4">
+            <strong>Subscribe</strong>
+          </h5>
+
+          <!--Card content-->
+          <div class="card-body red darken-1">
+
+            <div *ngIf="subscriptionSaved" class="alert alert-success"><small class="blinking">Email sent, please
+              verify.</small></div>
+
+            <div *ngIf="subscriptionFailed" class="alert alert-success"><small class="blinking">Subscription
+              failed</small></div>
+
+            <div *ngIf="pleaseWait" class="alert alert-warning"><small class="blinking">Please wait...</small></div>
+
+            <!-- Form -->
+            <form (ngSubmit)="onSubmit(subscribeForm.value)" *ngIf="!pleaseWait"
+                  [formGroup]="subscribeForm" class="text-center" style="color: #757575;">
+
+              <!-- Name -->
+              <div class="md-form mt-3">
+                <input [formControl]="subscribeForm.controls['name']" type="text"
+                       id="materialSubscriptionFormPasswords" class="form-control">
+                <label for="materialSubscriptionFormPasswords" class="white-text">Name</label>
+              </div>
+
+              <!-- E-mail -->
+              <div class="md-form">
+                <input [formControl]="subscribeForm.controls['email']" type="email"
+                       id="materialSubscriptionFormEmail" class="form-control">
+                <label for="materialSubscriptionFormEmail" class="white-text">E-mail</label>
+              </div>
+
+              <!-- Sign in button -->
+              <button *ngIf="subscribeForm.valid && buttonFlag"
+                      class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
+                      type="submit">Subscribe
+              </button>
+
+            </form>
+            <!-- Form -->
+
+          </div>
+
+        </div>
+        <!-- Material form subscription -->
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://kalarikkalbhagavathy.in/"> KalarikkalBhagavathy</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
