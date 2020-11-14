@@ -20,5 +20,5 @@ quarkus:
     mock: false
   http:
     port: ${PORT:8080}
-key_id: ${AWS_ACCESS_KEY_ID:AKIAJNZN7LKRTUSRTMQQ}
-secret: ${AWS_SECRET_ACCESS_KEY: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}
+key_id: ${AWS_ACCESS_KEY_ID}
+secret: ${AWS_SECRET_ACCESS_KEY}
