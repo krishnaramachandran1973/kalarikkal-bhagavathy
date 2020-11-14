@@ -1,27 +1,50 @@
-# KalarikkalBhagavathy
+# kalarikkal-bhagavathy project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-## Development server
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Running the application in dev mode
 
-## Code scaffolding
+You can run your application in dev mode that enables live coding using:
+```shell script
+./gradlew quarkusDev
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Packaging and running the application
 
-## Build
+The application can be packaged using:
+```shell script
+./gradlew build
+```
+It produces the `kalarikkal-bhagavathy-1.0.0-SNAPSHOT-runner.jar` file in the `/build` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/lib` directory.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+If you want to build an _über-jar_, execute the following command:
+```shell script
+./gradlew build -Dquarkus.package.type=uber-jar
+```
 
-## Running unit tests
+The application is now runnable using `java -jar build/kalarikkal-bhagavathy-1.0.0-SNAPSHOT-runner.jar`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Creating a native executable
 
-## Running end-to-end tests
+You can create a native executable using: 
+```shell script
+./gradlew build -Dquarkus.package.type=native
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+```shell script
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+```
 
-## Further help
+You can then execute your native executable with: `./build/kalarikkal-bhagavathy-1.0.0-SNAPSHOT-runner`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
+
+# Qute example
+
+Quarkus guide: https://quarkus.io/guides/qute
+
+Reference guide: https://quarkus.io/guides/qute-reference

@@ -1,0 +1,47 @@
+<div class="wave-container common-bg">
+  <div class="container-fluid wow animate__fadeInDown" data-wow-delay="0.6s" data-wow-duration="1s">
+
+    <section class="pb-5">
+
+      <!-- Section heading -->
+      <h2
+        class="h1-responsive font-weight-bold common-header centered wow animate__fadeIn"
+        data-wow-delay="0.8s" data-wow-duration="2s">Videos</h2>
+
+      <div class="container pl-5 pr-5 grey-text">
+
+        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+
+        <div class="row p-4 z-depth-5">
+
+          <div *ngFor="let video of videos | paginate: { itemsPerPage: 6, currentPage: p }" class="col-md-4 col-sm-4 col-xs-4 p-2 wow animate__zoomIn"
+               data-wow-delay="0.6s" data-wow-duration="2s">
+
+            <div class="card text-center">
+
+              <div class="card-body h-100">
+
+                <h5 class="alert alert-danger red-text">{{video.subject}}</h5>
+
+                <video controls controlsList="nodownload" height="320" width="340">
+                  <source src="assets/videos/{{video.name}}">
+                </video>
+
+                <h5 class="common-text red-text text-center">{{video.date}}</h5>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+
+      </div>
+
+    </section>
+
+  </div>
+</div>

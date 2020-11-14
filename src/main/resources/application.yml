@@ -6,5 +6,17 @@ quarkus:
   hibernate-orm:
     database:
       generation: drop-and-create
+  mailer:
+    from: info@kalarikkalbhagavathy.in
+    host: smtpout.secureserver.net
+    port: 465
+    ssl: true
+    trust-all: true
+    login: REQUIRED
+    start-tls: REQUIRED
+    auth-methods: DIGEST-MD5 CRAM-SHA256 CRAM-SHA1 CRAM-MD5 PLAIN LOGIN
+    username: info@kalarikkalbhagavathy.in
+    password: 9<T&To6Tlg&mqpu
+    mock: false
   http:
     port: ${PORT:8080}
