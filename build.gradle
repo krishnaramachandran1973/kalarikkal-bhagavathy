@@ -12,6 +12,10 @@ repositories {
 
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.901')
+    implementation platform('software.amazon.awssdk:bom:2.15.15')
+    implementation 'com.amazonaws:aws-java-sdk-s3'
+    implementation 'software.amazon.awssdk:s3'
     implementation 'io.quarkus:quarkus-kotlin'
     implementation 'io.quarkus:quarkus-hibernate-reactive'
     implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
@@ -22,7 +26,6 @@ dependencies {
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-mailer'
     implementation 'io.quarkus:quarkus-config-yaml'
-    implementation 'software.amazon.awssdk:s3:2.15.28'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
@@ -62,16 +65,16 @@ compileKotlin {
     }
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
     kotlinOptions.javaParameters = true
-    dependsOn('npm_run_build')
+    //dependsOn('npm_run_build')
 }
 
 processResources {
     doFirst {
         println 'Moving Angular build to web resource started'
     }
-    into("META-INF/resources") {
-        from("dist/kalarikkal-bhagavathy")
-    }
+//    into("META-INF/resources") {
+//        from("dist/kalarikkal-bhagavathy")
+//    }
 }
 
 compileTestKotlin {
