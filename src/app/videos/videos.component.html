@@ -21,10 +21,10 @@
 
               <div class="card-body h-100">
 
-                <h5 class="alert alert-danger red-text">{{video.subject}}</h5>
+                <h5 class="alert alert-danger red-text">{{video.name}}</h5>
 
                 <video controls controlsList="nodownload" height="320" width="340">
-                  <source src="assets/videos/{{video.name}}">
+                  <source src="{{video.url}}">
                 </video>
 
                 <h5 class="common-text red-text text-center">{{video.date}}</h5>

@@ -1,91 +1,91 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version "1.3.72"
-    id "org.jetbrains.kotlin.plugin.allopen" version "1.3.72"
-    id 'com.github.node-gradle.node' version '2.2.4'
-    id 'io.quarkus'
+  id 'org.jetbrains.kotlin.jvm' version "1.3.72"
+  id "org.jetbrains.kotlin.plugin.allopen" version "1.3.72"
+  id 'com.github.node-gradle.node' version '2.2.4'
+  id 'io.quarkus'
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
 dependencies {
-    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.901')
-    implementation platform('software.amazon.awssdk:bom:2.15.15')
-    implementation 'com.amazonaws:aws-java-sdk-s3'
-    implementation 'software.amazon.awssdk:s3'
-    implementation 'io.quarkus:quarkus-kotlin'
-    implementation 'io.quarkus:quarkus-hibernate-reactive'
-    implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
-    implementation 'io.quarkus:quarkus-reactive-pg-client'
-    implementation 'io.quarkus:quarkus-vertx'
-    implementation 'io.quarkus:quarkus-vertx-web'
-    implementation 'io.quarkus:quarkus-qute'
-    implementation 'io.quarkus:quarkus-arc'
-    implementation 'io.quarkus:quarkus-mailer'
-    implementation 'io.quarkus:quarkus-config-yaml'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    testImplementation 'io.quarkus:quarkus-junit5'
-    testImplementation 'io.rest-assured:rest-assured'
+  implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+  implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.901')
+  implementation platform('software.amazon.awssdk:bom:2.15.15')
+  implementation 'com.amazonaws:aws-java-sdk-s3'
+  implementation 'software.amazon.awssdk:s3'
+  implementation 'io.quarkus:quarkus-kotlin'
+  implementation 'io.quarkus:quarkus-hibernate-reactive'
+  implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
+  implementation 'io.quarkus:quarkus-reactive-pg-client'
+  implementation 'io.quarkus:quarkus-vertx'
+  implementation 'io.quarkus:quarkus-vertx-web'
+  implementation 'io.quarkus:quarkus-qute'
+  implementation 'io.quarkus:quarkus-arc'
+  implementation 'io.quarkus:quarkus-mailer'
+  implementation 'io.quarkus:quarkus-config-yaml'
+  implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+  testImplementation 'io.quarkus:quarkus-junit5'
+  testImplementation 'io.rest-assured:rest-assured'
 }
 
 group 'com.kalarikkal'
 version '1.0'
 
 node {
-    version = "12.18.3"
-    npmVersion = "6.14.6"
-    download = true
+  version = "12.18.3"
+  npmVersion = "6.14.6"
+  download = true
 }
 
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 quarkus {
-    setOutputDirectory("$projectDir/build/classes/kotlin/main")
+  setOutputDirectory("$projectDir/build/classes/kotlin/main")
 }
 
 quarkusDev {
-    setSourceDir("$projectDir/src/main/kotlin")
+  setSourceDir("$projectDir/src/main/kotlin")
 }
 
 allOpen {
-    annotation("javax.enterprise.context.ApplicationScoped")
-    annotation("io.quarkus.test.junit.QuarkusTest")
+  annotation("javax.enterprise.context.ApplicationScoped")
+  annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
 compileKotlin {
-    doFirst {
-        println 'Kotlin compile in progress'
-    }
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
-    kotlinOptions.javaParameters = true
-    //dependsOn('npm_run_build')
+  doFirst {
+    println 'Kotlin compile in progress'
+  }
+  kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+  kotlinOptions.javaParameters = true
+  dependsOn('npm_run_build')
 }
 
 processResources {
-    doFirst {
-        println 'Moving Angular build to web resource started'
-    }
-//    into("META-INF/resources") {
-//        from("dist/kalarikkal-bhagavathy")
-//    }
+  doFirst {
+    println 'Moving Angular build to web resource started'
+  }
+  into("META-INF/resources") {
+    from("dist/kalarikkal-bhagavathy")
+  }
 }
 
 compileTestKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+  kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
 
 quarkusBuild {
-    doFirst {
-        println 'Quarkus build in progress'
-    }
-    uberJar = true
+  doFirst {
+    println 'Quarkus build in progress'
+  }
+  uberJar = true
 }
 
 task stage(dependsOn: ['quarkusBuild'])

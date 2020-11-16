@@ -7,13 +7,13 @@ import javax.persistence.Entity
 class Video() : PanacheEntity()
 {
   lateinit var name: String
-  lateinit var subject: String
+  lateinit var url: String
   lateinit var date: String
 
-  constructor(name: String, subject: String, date: String) : this()
+  constructor(name: String, url: String, date: String) : this()
   {
     this.name = name
-    this.subject = subject
+    this.url = url
     this.date = date
   }
 

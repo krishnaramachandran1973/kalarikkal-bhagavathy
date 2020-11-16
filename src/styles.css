@@ -18,6 +18,7 @@ div#preloader {
 
 .xng-breadcrumb-item, label.xng-breadcrumb-trail, .xng-breadcrumb-link {
   margin-bottom: 0rem !important;
+  color: aliceblue;
 }
 
 .wave-container {
@@ -79,8 +80,58 @@ div#preloader {
   100%{   color: #000;    }
 }
 
-@media (min-width: 1300px) {
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .container{
+    max-width: 800px;
+  }
+  h3.common-header {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 610px) {
+  .container{
+    max-width: 1000px;
+  }
+  h3.common-header {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .container{
+    max-width: 1100px;
+  }
+  h3.common-header {
+    font-size: 30px;
+    letter-spacing: 3px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .container{
+    max-width: 1200px;
+  }
+  h3.common-header {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
   .container{
     max-width: 1300px;
+  }
+  h3.common-header {
+    font-size: 40px;
+    letter-spacing: 4px;
   }
 }

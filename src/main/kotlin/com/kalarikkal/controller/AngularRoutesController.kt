@@ -14,12 +14,6 @@ class AngularRoutesController
   @Route(path = "/contact", methods = [HttpMethod.GET], produces = ["text/html"])
   fun contact(routingContext: RoutingContext) = routingContext.reroute("/")
 
-  @Route(path = "/consult", methods = [HttpMethod.GET], produces = ["text/html"])
-  fun phone(routingContext: RoutingContext) = routingContext.reroute("/")
-
-  @Route(regex = "/booking.*", methods = [HttpMethod.GET], produces = ["text/html"])
-  fun booking(routingContext: RoutingContext) = routingContext.reroute("/")
-
   @Route(path = "/videos", methods = [HttpMethod.GET], produces = ["text/html"])
   fun blogs(routingContext: RoutingContext) = routingContext.reroute("/")
 

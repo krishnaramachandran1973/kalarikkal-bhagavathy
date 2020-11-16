@@ -11,9 +11,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AboutComponent} from './about/about.component';
 import {NgwWowModule} from "ngx-wow";
-import { ContactComponent } from './contact/contact.component';
-import { VerifyComponent } from './verify/verify.component';
-import { VideosComponent } from './videos/videos.component';
+import {ContactComponent} from './contact/contact.component';
+import {VerifyComponent} from './verify/verify.component';
+import {VideosComponent} from './videos/videos.component';
 import {NgxPaginationModule} from "ngx-pagination";
 
 const routes: Routes = [
