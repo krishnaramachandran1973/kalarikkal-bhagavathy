@@ -37,6 +37,7 @@ class StartUp
 
   fun start(@Observes startupEvent: StartupEvent)
   {
+    log.info("Startup running")
     var name: String
     var url: String
     var date: String
@@ -50,6 +51,7 @@ class StartUp
 
       val objectListing: ObjectListing = s3Client.listObjects("kalarikkalbhagavathy")
       objectListing.objectSummaries.forEach { s3ObjectSummary: S3ObjectSummary ->
+        log.info("Received file {}", s3ObjectSummary.key)
         name = s3ObjectSummary.key.split(",")[0]
         url = "https://kalarikkalbhagavathy.s3.amazonaws.com/${s3ObjectSummary.key}"
         date = s3ObjectSummary.key.split(",")[1].split(".")[0]
