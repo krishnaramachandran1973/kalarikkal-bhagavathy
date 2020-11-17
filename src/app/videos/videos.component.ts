@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Video} from "../entity/video.model";
 import {NgwWowService} from "ngx-wow";
 import {VideoService} from "../services/video.service";
