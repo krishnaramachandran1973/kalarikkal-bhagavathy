@@ -41,9 +41,8 @@ class StartUp
     var name: String
     var url: String
     var date: String
-    log.info("Outside Credentials {} {}", amazon_key, amazon_secret)
+
     CompletableFuture.runAsync {
-      log.info("Credentials {} {}", amazon_key, amazon_secret)
       val awsCredentials: AWSCredentials = BasicAWSCredentials(amazon_key, amazon_secret)
       val s3Client: AmazonS3 = AmazonS3ClientBuilder.standard()
         .withCredentials(AWSStaticCredentialsProvider(awsCredentials))

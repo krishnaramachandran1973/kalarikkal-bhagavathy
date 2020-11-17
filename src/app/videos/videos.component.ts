@@ -26,4 +26,11 @@ export class VideosComponent implements OnInit
   {
   }
 
+  @HostListener('contextmenu', ['$event'])
+  onRightClick(event)
+  {
+    event.preventDefault();
+  }
+
+
 }
