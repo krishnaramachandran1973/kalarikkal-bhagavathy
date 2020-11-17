@@ -43,11 +43,13 @@ class StartUp
     var date: String
 
     CompletableFuture.runAsync {
+      log.info("Credentials {} {}", amazon_key, amazon_secret)
       val awsCredentials: AWSCredentials = BasicAWSCredentials(amazon_key, amazon_secret)
       val s3Client: AmazonS3 = AmazonS3ClientBuilder.standard()
         .withCredentials(AWSStaticCredentialsProvider(awsCredentials))
         .withRegion(Regions.US_EAST_1)
         .build()
+      log.info("Login complete")
 
       val objectListing: ObjectListing = s3Client.listObjects("kalarikkalbhagavathy")
       objectListing.objectSummaries.forEach { s3ObjectSummary: S3ObjectSummary ->
