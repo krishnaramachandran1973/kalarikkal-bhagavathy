@@ -1,13 +1,5 @@
 package com.kalarikkal
 
-import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.AWSStaticCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.regions.Regions
-import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3ClientBuilder
-import com.amazonaws.services.s3.model.ObjectListing
-import com.amazonaws.services.s3.model.S3ObjectSummary
 import com.kalarikkal.entity.Video
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
@@ -15,10 +7,16 @@ import org.hibernate.reactive.mutiny.Mutiny
 import org.hibernate.reactive.mutiny.Mutiny.SessionFactory
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request
 import java.util.concurrent.CompletableFuture
 import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.event.Observes
 import javax.inject.Inject
+
 
 @ApplicationScoped
 class StartUp
@@ -43,27 +41,49 @@ class StartUp
     var date: String
 
     CompletableFuture.runAsync {
-      val awsCredentials: AWSCredentials = BasicAWSCredentials(amazon_key, amazon_secret)
-      val s3Client: AmazonS3 = AmazonS3ClientBuilder.standard()
-        .withCredentials(AWSStaticCredentialsProvider(awsCredentials))
-        .withRegion(Regions.US_EAST_1)
-        .build()
-      log.info("Login complete")
+      val region = Region.AP_SOUTH_1
+      val credentials: InstanceProfileCredentialsProvider =
+        InstanceProfileCredentialsProvider.builder()
+          .asyncCredentialUpdateEnabled(true)
+          .build()
 
-      val objectListing: ObjectListing = s3Client.listObjects("kalarikkalbhagavathy")
-      objectListing.objectSummaries.forEach { s3ObjectSummary: S3ObjectSummary ->
-        log.info("Received file {}", s3ObjectSummary.key)
-        name = s3ObjectSummary.key.split(",")[0]
-        url = "https://kalarikkalbhagavathy.s3.amazonaws.com/${s3ObjectSummary.key}"
-        date = s3ObjectSummary.key.split(",")[1].split(".")[0]
-        this.sessionFactory.withTransaction { session: Mutiny.Session, _: Mutiny.Transaction? ->
-          session.persist(Video(name, url, date))
+      val s3 = S3Client.builder()
+        .region(region)
+        .build()
+
+      val listBucketsRequest = ListBucketsRequest.builder()
+        .build()
+      val listBucketsResponse = s3.listBuckets(listBucketsRequest)
+      val bucket = listBucketsResponse.buckets()
+        .stream()
+        .filter { it.name() == "kalarikkal-bhagavathy" }
+        .findFirst()
+
+      val listObjectsV2Request = ListObjectsV2Request.builder()
+        .bucket(bucket.get()
+          .name())
+        .build()
+
+      val listObjectsV2Response = s3.listObjectsV2(listObjectsV2Request)
+      listObjectsV2Response.contents()
+        .forEach {
+          log.info(it.key())
+          name = it.key()
+            .split(",")[0]
+          url = "https://${bucket.get()
+            .name()}.s3.amazonaws.com/${it.key()}"
+          date = it.key()
+            .split(",")[1].split(".")[0]
+          this.sessionFactory.withTransaction { session: Mutiny.Session, _: Mutiny.Transaction? ->
+            session.persist(Video(name, url, date))
+          }
+            .await()
+            .indefinitely()
+
         }
-          .await()
-          .indefinitely()
-      }
-    }
-      .thenAccept { log.info("Fetching videos from Amazon S3 and data insert complete") }
+      credentials.close()
+
+    }.thenAccept { log.info("Fetching and saving videos complete!!") }
 
   }
 
