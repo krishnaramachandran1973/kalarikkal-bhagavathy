@@ -11,7 +11,7 @@ gulp.task('purifyCSS', () => {
           info: true, // Outputs reduction information (like in the screenshot above)
           minify: true, // Minifies the files after reduction
           rejected: true, // Logs the CSS rules that were removed
-          whitelist: [] // Ignored css classes
+          whitelist: ['*transition*', '*animate*', '*dimmer*','label.xng-breadcrumb-trail'] // Ignored css classes
         }
       ),
     )
